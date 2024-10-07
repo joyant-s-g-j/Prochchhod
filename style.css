@@ -1,0 +1,30 @@
+
+.input-section label {
+    display: block;
+    font-weight: bold;
+}
+.input-section input, 
+.input-section select{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease-in-out;
+    font-family: 'Times New Roman', Times, serif;
+}
+.input-section input:focus,
+.input-section select:focus{
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+.output-content{
+    font-family: 'Times New Roman', Times, serif;
+    background-color: white;
+    color: black;
+}
+.output-content p{
+    font-size: 12px;
+}
+
+
+
