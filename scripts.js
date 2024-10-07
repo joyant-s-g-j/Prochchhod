@@ -41,7 +41,7 @@ function updateContent() {
             const logoImg = document.createElement('img');
             logoImg.src = logoSrc
             logoImg.alt = selectedUniversity + " Logo";
-            logoImg.className = "p-4 max-w-[200px] max-h-[150px] mx-auto";
+            logoImg.className = "p-4 max-w-[200px] mx-auto";
             logoContainer.appendChild(logoImg);
         }
     }
