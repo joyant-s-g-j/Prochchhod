@@ -19,9 +19,9 @@ function updateContent() {
         const value = document.getElementById(field).value;
         document.getElementById(field + 'Text').textContent = value;
         if (field === 'university') {
-            document.getElementById(field + 'Text').className = "text-[13px]";
+            document.getElementById(field + 'Text').className = "text-[12.5px]";
         } else {
-            document.getElementById(field + 'Text').className = "text-[12px]";
+            document.getElementById(field + 'Text').className = "text-[11px]";
         }
     });
 
