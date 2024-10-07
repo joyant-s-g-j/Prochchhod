@@ -35,6 +35,12 @@ function updateContent() {
 
     logoContainer.innerHTML = '';
 
+    if (selectedUniversity === "Metropoliton University" || selectedUniversity === "Uttara University") {
+        document.getElementById('universityText').textContent = "";  
+    } else {
+        document.getElementById('universityText').textContent = selectedUniversity;
+    };
+
     if(selectedOption) {
         const logoSrc = selectedOption.getAttribute('data-logo');
         if(logoSrc) {
