@@ -19,7 +19,7 @@ function updateContent() {
         const value = document.getElementById(field).value;
         document.getElementById(field + 'Text').textContent = value;
         if (field === 'university') {
-            document.getElementById(field + 'Text').className = "text-[14px]";
+            document.getElementById(field + 'Text').className = "text-[13px]";
         } else {
             document.getElementById(field + 'Text').className = "text-[12px]";
         }
