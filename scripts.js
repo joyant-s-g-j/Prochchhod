@@ -19,9 +19,11 @@ function updateContent() {
         const value = document.getElementById(field).value;
         document.getElementById(field + 'Text').textContent = value;
         if (field === 'university') {
-            document.getElementById(field + 'Text').className = "text-[12.5px]";
+            document.getElementById(field + 'Text').className = "text-[10px]";
+        } else if(field === 'coverType') {
+            document.getElementById(field + 'Text').className = "text-[9px]"
         } else {
-            document.getElementById(field + 'Text').className = "text-[11px]";
+            document.getElementById(field + 'Text').className = "text-[8px]";
         }
     });
 
@@ -47,7 +49,7 @@ function updateContent() {
             const logoImg = document.createElement('img');
             logoImg.src = logoSrc
             logoImg.alt = selectedUniversity + " Logo";
-            logoImg.className = "p-4 max-w-[200px] mx-auto";
+            logoImg.className = "p-2 max-w-[200px] mx-auto";
             logoContainer.appendChild(logoImg);
         }
     }
