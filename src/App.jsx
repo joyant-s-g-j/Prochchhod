@@ -1,9 +1,13 @@
-
-import { Box } from '@chakra-ui/react'
+import { PDFViewer } from '@react-pdf/renderer';
+import Home from './components/Home';
+import Form from './components/PDFViewer';
+import { Box } from '@chakra-ui/react';
 
 function App() {
   return (
-    <Box>Hello world</Box>
+    <Box>
+      <Home />
+    </Box>
   )
 }
 
