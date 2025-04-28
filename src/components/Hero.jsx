@@ -20,7 +20,6 @@ const Hero = () => {
             initial={{ opacity: 0, x:-20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9 }}
-            style={{ order: { base: 0, md: 1 } }}
         >
             <Image 
                 mt={10} 

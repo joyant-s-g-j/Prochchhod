@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 
 const PDFView = () => {
   return (
-    <PDFViewer style={{width: '50%', height: '90vh', marginTop: 96}}>
+    <PDFViewer style={{width: '50%', height: '90vh', marginTop: 72, objectFit: "contain", borderRadius: '10px'}}>
       <Document>
           <Page size={'A4'} style={styles.page} >
             <View style={styles.body}>

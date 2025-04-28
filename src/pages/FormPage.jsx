@@ -5,8 +5,8 @@ import PDFView from '../components/PDFView'
 
 const FormPage = () => {
   return (
-    <Box display='flex' justifyContent="space-between">
-        {/* <Form /> */}
+    <Box display='flex' backgroundColor="#f4f1ee" justifyContent="space-around" >
+        <Form />
         <PDFView />
     </Box>
   )
