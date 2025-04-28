@@ -5,7 +5,12 @@ import PDFView from '../components/PDFView'
 
 const FormPage = () => {
   return (
-    <Box display='flex' backgroundColor="#f4f1ee" justifyContent="space-around" >
+    <Box 
+      display='flex'
+      flexDirection={{base: "column", lg: "row"}} 
+      backgroundColor="#f4f1ee" 
+      justifyContent={{base: "none", lg: "space-around"}} 
+    >
         <Form />
         <PDFView />
     </Box>

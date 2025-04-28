@@ -12,13 +12,21 @@ const items = [
 
 const Form = () => {
   return (
-    <Box style={{ fontFamily: "'Bebas Neue', sans-serif", fontWeight: "400" }} display="flex" flexDirection="column" alignItems="start" justifyContent="center">
+    <Box 
+      mt={{base: "32", lg: "0"}} 
+      style={{ fontFamily: "'Bebas Neue', sans-serif", fontWeight: "400" }} 
+      display="flex" 
+      flexDirection="column" 
+      alignItems="start" 
+      justifyContent="center"
+      paddingX={10}
+    >
       <motion.div
         initial={{ opacity: 0, x:-20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.9 }}
       >
-          <Text fontSize="5xl" color="gray.700" mb={4}>
+          <Text fontSize={{base: "2xl", lg: "5xl"}} color="gray.700" mb={4}>
             Important Instructions:
           </Text>
           <List.Root color="gray.700" fontSize="2xl">

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Document, StyleSheet, PDFViewer, Page, Text, View, Image, Font } from '@react-pdf/renderer'
 import adust from "../assets/adust.png"
+import { useMediaQuery } from '@chakra-ui/react'
 
 Font.register({
   family: 'Times New Roman',
@@ -9,7 +10,6 @@ Font.register({
 
 const styles = StyleSheet.create({
   page: {
-    // padding: 20,
     fontFamily: 'Times New Roman',
   },
   body: {
@@ -47,8 +47,20 @@ const styles = StyleSheet.create({
 
 
 const PDFView = () => {
+  const [isTabletOrMobile] = useMediaQuery('(max-width: 1024px)');
   return (
-    <PDFViewer style={{width: '50%', height: '90vh', marginTop: 72, objectFit: "contain", borderRadius: '10px'}}>
+    <PDFViewer
+      key={isTabletOrMobile ? 'mobile' : 'desktop'}
+      style={{
+        width: isTabletOrMobile ? '100%' :'50%', 
+        height: '90vh', 
+        marginTop: 72, 
+        objectFit: "contain", 
+        borderRadius: '20px',
+        padding: 10
+      }}
+      
+    >
       <Document>
           <Page size={'A4'} style={styles.page} >
             <View style={styles.body}>

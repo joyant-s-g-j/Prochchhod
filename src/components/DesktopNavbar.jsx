@@ -12,6 +12,7 @@ const DesktopNavbar = () => {
                 variant="ghost" 
                 borderColor="blackAlpha.400"
                 borderRadius="full"
+                backgroundColor="#d2c7bc"
                 _hover={{backgroundColor: "#d0b79e"}}
             >
                 <Icon as={Home} />
@@ -23,6 +24,7 @@ const DesktopNavbar = () => {
                 style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }} 
                 variant="ghost" 
                 borderColor="blackAlpha.400"
+                backgroundColor="#d2c7bc"
                 borderRadius="full"
                 _hover={{backgroundColor: "#d0b79e"}}
             >
