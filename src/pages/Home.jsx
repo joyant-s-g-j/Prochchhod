@@ -1,6 +1,5 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react'
-import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 
 const Home = () => {
