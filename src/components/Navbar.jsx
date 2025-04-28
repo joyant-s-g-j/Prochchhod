@@ -14,9 +14,8 @@ const Navbar = () => {
         margin="10px"
         width="calc(100% - 20px)"   
         zIndex="50"
-        border="2px solid"
-        borderColor="gray.400"
-        bg="blue.muted"
+        border="2px #ccc solid"
+        bg="#ded7d0"
         borderRadius="4xl"
         backdropFilter="blur(70px)"
     >
@@ -26,7 +25,12 @@ const Navbar = () => {
                     <Link to="/">
                         <Flex direction="row">
                             <Icon as={FileText} boxSize={{base: "9", lg: "12"}} />
-                            <Text fontSize={{base: "2xl", lg: "3xl"}} textTransform="uppercase" fontWeight="bold">প্রচ্ছদ</Text>
+                            <Text 
+                                fontSize={{base: "2xl", lg: "4xl"}} 
+                                style={{ fontFamily: "'Tangerine', cursive", fontWeight: "900" }}
+                            >
+                                Prochchhod
+                            </Text>
                         </Flex>
                     </Link>
                 </Flex>

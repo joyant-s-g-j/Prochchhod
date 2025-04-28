@@ -5,7 +5,7 @@ import Hero from '../components/Hero';
 
 const Home = () => {
   return (
-    <Box display="flex" flexDirection="column" backgroundColor="blue.subtle">
+    <Box display="flex" backgroundColor="#f4f1ee" flexDirection="column">
       <Hero />     
     </Box>
   )
