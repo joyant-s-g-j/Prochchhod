@@ -11,16 +11,33 @@ const Hero = () => {
         display="flex" 
         minH="100vh" 
         alignItems="center"
-        justifyContent="space-around"
-        textAlign="center"
-    >
+        justifyContent={{base: "center", md: "space-around"}}
+        textAlign={{base: "center", md: "start"}}
+        flexDirection={{base: "column", md: "row"}}
+        marginX={{base: "5", md: "7", lg: "none"}}
+    >      
         <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x:-20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9 }}
+            style={{ order: { base: 0, md: 1 } }}
+        >
+            <Image 
+                mt={10} 
+                src={heroimage} 
+                alt='Hero Image' 
+                boxSize={{base: "300px", md: "400px", lg: "500px", xl: "600px"}} 
+                objectFit="contain"
+                mb={{base: 8, md: 0}} 
+            />      
+        </motion.div>
+        <motion.div
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9 }}
         >
             <Text 
-                fontSize="6xl" 
+                fontSize={{base: "2xl", md: "3xl", lg: "4xl", xl: "6xl"}} 
                 textAlign="start" 
                 color="blackAlpha.800"
                 style={{fontFamily: "'Anton', sans-serif", fontWeight: "400"}}    
@@ -28,7 +45,7 @@ const Hero = () => {
                 Create Your Perfect Cover <br /> with Just a Few Clicks
             </Text>
             <Text 
-                fontSize="3xl" 
+                fontSize={{base: "xl", md: "2xl", lg: "2xl", xl: "3xl" }} 
                 textAlign="start" 
                 color="gray.600" 
                 style={{ fontFamily: "'Bebas Neue', sans-serif", fontWeight: "500" }} 
@@ -51,13 +68,7 @@ const Hero = () => {
                 </Button>
             </Link>
         </motion.div>
-        <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }}
-        >
-            <Image mt={10} src={heroimage} alt='Hero Image' boxSize="600px" objectFit="contain" />      
-        </motion.div>
+               
     </Box>
     
   )
