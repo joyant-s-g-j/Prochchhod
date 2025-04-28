@@ -1,6 +1,7 @@
 import { Button, CloseButton, Dialog, Icon, Portal } from '@chakra-ui/react'
 import { Clipboard } from 'lucide-react'
 import React from 'react'
+import FormField from './FormField'
 
 const DialogForm = () => {
   return (
@@ -23,15 +24,20 @@ const DialogForm = () => {
         <Portal>
             <Dialog.Backdrop />
             <Dialog.Positioner>
-                <Dialog.Content backgroundColor="#f4f1ee">
+                <Dialog.Content 
+                    backgroundColor="#f4f1ee"
+                    // maxW="90vw" 
+                    maxH="90vh"
+                    overflowY="auto"
+                >
                     <Dialog.Header>
-                        <Dialog.Title>Fill up this Form</Dialog.Title>
+                        <Dialog.Title style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }}>Fill up all this section</Dialog.Title>
                         <Dialog.CloseTrigger asChild>
                             <CloseButton size="sm" />
                         </Dialog.CloseTrigger>
                     </Dialog.Header>
                     <Dialog.Body>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, facere?
+                        <FormField />
                     </Dialog.Body>
                 </Dialog.Content>
             </Dialog.Positioner>
