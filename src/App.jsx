@@ -1,12 +1,20 @@
-import { PDFViewer } from '@react-pdf/renderer';
-import Home from './components/Home';
-import Form from './components/PDFViewer';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
 import { Box } from '@chakra-ui/react';
+import FormPage from './pages/FormPage';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <Box>
-      <Home />
+      <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path='/formpage' element={<FormPage />} />
+      </Routes>
+      </BrowserRouter>
     </Box>
   )
 }
