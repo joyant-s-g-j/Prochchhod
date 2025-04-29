@@ -1,6 +1,6 @@
 # Prochchhod 📄🎓
 
-🚀 **Prochchhod** is an assignment cover page generator designed for university students. It allows users to create a custom cover page for their assignments by filling in specific details like course information, teacher details, student info, and submission date. Built with **React, React-PDF, Chakra UI, and Framer Motion**, Prochchhod provides a smooth and interactive user experience with an intuitive interface for quickly generating assignment cover pages.
+🚀 **Prochchhod** is an assignment cover page generator designed specifically for **ADUST** students. It allows users to create a custom cover page for their assignments by filling in specific details like course information, teacher details, student info, and submission date. Built with **React, React-PDF, Chakra UI, and Framer Motion**, Prochchhod provides a smooth and interactive user experience with an intuitive interface for quickly generating assignment cover pages.
 
 ### 🔗 Live Demo  
 Check out the live version here: **[Prochchhod Live](https://prochchhod.vercel.app/)**  
