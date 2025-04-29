@@ -1,13 +1,14 @@
 import { Box, Button, Dialog, Field, Fieldset, For, Input, NativeSelect, Portal, Stack } from '@chakra-ui/react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import React, { useState } from 'react'
-import PDFView from './PDFView'
 import { PDFDocument } from './PDFView'
+import { toaster } from './ui/toaster';
 
 const FormField = () => {
     const [formData, setFormData] = useState({})
     const [readyToDownload, setReadyToDownload] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [isDownloaded, setIsDownloaded] = useState(false);
     const designations = [
         'Lecturer',
         'Senior Lecturer',
@@ -75,6 +76,13 @@ const FormField = () => {
         setReadyToDownload(true)
         setIsDialogOpen(true)
     }
+
+    const handleDownloadClick = () => {
+        setIsDownloaded(true);
+        setTimeout(() => {
+          toaster.success({ title: 'PDF downloaded successfully' });
+        }, 500);
+    };
 
   return (
     <Box as="form" onSubmit={handleSubmit} display="flex" flexDirection="column">
@@ -312,6 +320,7 @@ const FormField = () => {
                                             color="gray.800"
                                             _hover={{ backgroundColor: '#d0b79e' }}
                                             style={{ fontFamily: "'Saira', sans-serif", fontWeight: '600' }}
+                                            onClick={handleDownloadClick}
                                         >
                                             {loading ? 'Loading document...' : 'Download PDF'}
                                         </Button>
