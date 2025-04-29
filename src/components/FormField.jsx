@@ -3,12 +3,14 @@ import { PDFDownloadLink } from '@react-pdf/renderer'
 import React, { useState } from 'react'
 import { PDFDocument } from './PDFView'
 import { toaster } from './ui/toaster';
+import { useNavigate } from 'react-router-dom';
 
 const FormField = () => {
     const [formData, setFormData] = useState({})
     const [readyToDownload, setReadyToDownload] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [isDownloaded, setIsDownloaded] = useState(false);
+    const navigate = useNavigate()
     const designations = [
         'Lecturer',
         'Senior Lecturer',
@@ -81,6 +83,9 @@ const FormField = () => {
         setIsDownloaded(true);
         setTimeout(() => {
           toaster.success({ title: 'PDF downloaded successfully' });
+          setTimeout(() => {
+            navigate('/')
+          }, 1000)
         }, 500);
     };
 
