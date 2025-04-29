@@ -26,9 +26,8 @@ const DialogForm = () => {
             <Dialog.Positioner>
                 <Dialog.Content 
                     backgroundColor="#f4f1ee"
-                    // maxW="90vw" 
                     maxH="90vh"
-                    overflowY="auto"
+                    overflowY={{base: "auto", lg: "hidden" }}
                 >
                     <Dialog.Header>
                         <Dialog.Title style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }}>Fill up all this section</Dialog.Title>
