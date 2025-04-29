@@ -1,4 +1,4 @@
-import { Box, Button, Field, Fieldset, For, Input, NativeSelect, Stack } from '@chakra-ui/react'
+import { Box, Button, Dialog, Field, Fieldset, For, Input, NativeSelect, Portal, Stack } from '@chakra-ui/react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import React, { useState } from 'react'
 import PDFView from './PDFView'
@@ -7,7 +7,7 @@ import { PDFDocument } from './PDFView'
 const FormField = () => {
     const [formData, setFormData] = useState({})
     const [readyToDownload, setReadyToDownload] = useState(false)
-
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
     const designations = [
         'Lecturer',
         'Senior Lecturer',
@@ -73,6 +73,7 @@ const FormField = () => {
         console.log('Submitted formData:', inputData);
         setFormData(inputData)
         setReadyToDownload(true)
+        setIsDialogOpen(true)
     }
 
   return (
@@ -265,26 +266,64 @@ const FormField = () => {
         >
             Submit
         </Button>
-        {readyToDownload && (
-            <Box mt={4} textAlign="center">
-                <PDFDownloadLink
-                    document={<PDFDocument formData={formData} />}
-                    fileName='coverByJS.pdf'
-                >
-                    {({ loading }) => (
-                        <Button
-                            isDisabled={loading}
-                            backgroundColor="#d2c7bc"
-                            borderRadius="full"
-                            _hover={{ backgroundColor: '#d0b79e' }}
-                            style={{ fontFamily: "'Saira', sans-serif", fontWeight: '600' }}
-                        >
-                            {loading ? 'Loading document...' : 'Download PDF'}
-                        </Button>
-                    )}
-                </PDFDownloadLink>
-            </Box>
-        )}
+        <Dialog.Root
+            open={isDialogOpen}
+            placement="center"
+            onOpenChange={(details) => setIsDialogOpen(details.open)}
+        >
+            <Portal>
+                <Dialog.Backdrop />
+                <Dialog.Positioner>
+                    <Dialog.Content
+                        style={{ fontFamily: "'Saira', sans-serif" }}
+                        borderRadius="20px"
+                        bg="#f4f1ee"
+                        p={4}
+                    >
+                        <Dialog.Header>
+                            <Dialog.Title>Download Your PDF</Dialog.Title>
+                        </Dialog.Header>
+
+                        <Dialog.Body>
+                            <Box>
+                                Your cover page is ready! Click below to download the PDF.
+                            </Box>
+                        </Dialog.Body>
+                        <Dialog.Footer>
+                            <Dialog.CloseTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    mr={3}
+                                    style={{ fontFamily: "'Saira', sans-serif", fontWeight: '600' }}
+                                >
+                                    Cancel
+                                </Button>
+                            </Dialog.CloseTrigger>
+                            {readyToDownload && (
+                                <PDFDownloadLink
+                                    document={<PDFDocument formData={formData} />}
+                                    fileName='coverByJS.pdf'
+                                >
+                                    {({ loading }) => (
+                                        <Button
+                                            isDisabled={loading}
+                                            backgroundColor="#d2c7bc"
+                                            borderRadius="full"
+                                            color="gray.800"
+                                            _hover={{ backgroundColor: '#d0b79e' }}
+                                            style={{ fontFamily: "'Saira', sans-serif", fontWeight: '600' }}
+                                        >
+                                            {loading ? 'Loading document...' : 'Download PDF'}
+                                        </Button>
+                                    )}
+                                </PDFDownloadLink>
+                            )}
+                        </Dialog.Footer>
+                    </Dialog.Content>
+                </Dialog.Positioner>
+            </Portal>
+        </Dialog.Root>
+        
     </Box>
   )
 }
