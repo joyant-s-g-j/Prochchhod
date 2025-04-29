@@ -1,22 +1,82 @@
 import { Box, Button, Field, Fieldset, For, Input, NativeSelect, Stack } from '@chakra-ui/react'
-import React from 'react'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import React, { useState } from 'react'
+import PDFView from './PDFView'
+import { PDFDocument } from './PDFView'
 
 const FormField = () => {
+    const [formData, setFormData] = useState({})
+    const [readyToDownload, setReadyToDownload] = useState(false)
+
     const designations = [
-        "Lecturer", "Senior Lecturer", "Assistant Professor", "Associate Professor",
-        "Professor", "Adjunct Professor", "Distinguished Professor", "Visiting Professor",
-        "Research Professor", "Emeritus Professor", "Instructor", "Teaching Assistant",
-        "Postdoctoral Researcher", "Department Head", "Dean"
+        'Lecturer',
+        'Senior Lecturer',
+        'Assistant Professor',
+        'Associate Professor',
+        'Professor',
+        'Adjunct Professor',
+        'Distinguished Professor',
+        'Visiting Professor',
+        'Research Professor',
+        'Emeritus Professor',
+        'Instructor',
+        'Teaching Assistant',
+        'Postdoctoral Researcher',
+        'Department Head',
+        'Dean',
     ];
+    
     const departments = [
-        "Computer Science and Engineering", "Electrical and Electronic Engineering", "Mechanical Engineering",
-        "Textile Engineering", "Civil Engineering", "Fashion Design and Technology",
-        "Robotics and Automation Engineering", "Business Administration",
-        "Agribusiness", "Pharmacy", "Public Health", "Journalism and Media Studies",
-        "English", "Law", "Economic"
-      ];
+        'Agribusiness',
+        'Business Administration',
+        'Civil Engineering',
+        'Computer Science and Engineering',
+        'Economic',
+        'Electrical and Electronic Engineering',
+        'English',
+        'Fashion Design and Technology',
+        'Journalism and Media Studies',
+        'Law',
+        'Mechanical Engineering',
+        'Pharmacy',
+        'Public Health',
+        'Robotics and Automation Engineering',
+        'Textile Engineering',
+    ];  
+    
+    const [inputData, setInputData] = useState({
+        pageType: '',
+        pageTitle: '',
+        courseTitle: '',
+        courseId: '',
+        submissionDate: '',
+        teacherName: '',
+        teacherDesignation: '',
+        teacherDepartment: '',
+        studentName: '',
+        studentId: '',
+        batchNo: '',
+        section: '',
+        session: '',
+        studentDepartment: '',
+    })
+
+    const handleChange = (e) => {
+        setInputData({
+            ...inputData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('Submitted formData:', inputData);
+        setFormData(inputData)
+        setReadyToDownload(true)
+    }
+
   return (
-    <Box display="flex" flexDirection="column">
+    <Box as="form" onSubmit={handleSubmit} display="flex" flexDirection="column">
         <Box 
             display="flex" 
             style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }} 
@@ -35,7 +95,7 @@ const FormField = () => {
                     <Field.Label>Cover Page Type</Field.Label>
                         <Field.HelperText>Enter your page type</Field.HelperText>
                         <NativeSelect.Root>
-                            <NativeSelect.Field name="name" border="2px gray solid" placeholder='e.g. Assignment'>
+                            <NativeSelect.Field name="pageType" border="2px gray solid" onChange={handleChange} placeholder='Select page type'>
                             <For each={["Assignment", "Lab Report", "Project"]}>
                                 {(item) => (
                                 <option key={item} value={item}>
@@ -51,25 +111,25 @@ const FormField = () => {
                     <Field.Root>
                         <Field.Label>Cover Page Title</Field.Label>
                         <Field.HelperText>Enter your page title</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. Implementing Inheritance in OOP' />
+                        <Input name="pageTitle" border="2px gray solid" placeholder='e.g. Implementing Inheritance in OOP' onChange={handleChange} />
                     </Field.Root>
 
                     <Field.Root>
                         <Field.Label>Course Title</Field.Label>
                         <Field.HelperText>Enter your course title</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. Object Oriented Programming' />
+                        <Input name="courseTitle" border="2px gray solid" placeholder='e.g. Object Oriented Programming' onChange={handleChange} />
                     </Field.Root>
 
                     <Field.Root>
                         <Field.Label>Course Id</Field.Label>
                         <Field.HelperText>Enter your course id</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. CSE 212' />
+                        <Input name="courseId" border="2px gray solid" placeholder='e.g. CSE 212' onChange={handleChange} />
                     </Field.Root>
 
                     <Field.Root>
                         <Field.Label>Submission Date</Field.Label>
                         <Field.HelperText>Enter submission date</Field.HelperText>
-                        <Input name="date" type='date' border="2px gray solid" placeholder='e.g. 24/05/2025' />
+                        <Input name="submissionDate" type='date' border="2px gray solid" placeholder='e.g. 24/05/2025' onChange={handleChange} />
                     </Field.Root>
 
                 </Fieldset.Content>
@@ -84,14 +144,14 @@ const FormField = () => {
                     <Field.Root>
                         <Field.Label>Course Teacher's Name</Field.Label>
                         <Field.HelperText>Enter your course teacher's name</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. Mahmudur Rahman Roni' />           
+                        <Input name="teacherName" border="2px gray solid" placeholder='e.g. Mahmudur Rahman Roni' onChange={handleChange} />           
                     </Field.Root>
 
                     <Field.Root>
                         <Field.Label>Course Teacher's Designation</Field.Label>
                         <Field.HelperText>Select your course teacher's designation</Field.HelperText>
                         <NativeSelect.Root>
-                            <NativeSelect.Field name="name" border="2px gray solid" placeholder="e.g. Lecturer">
+                            <NativeSelect.Field name="teacherDesignation" border="2px gray solid" placeholder="e.g. Lecturer"  onChange={handleChange}>
                             <For each={designations}>
                                 {(item) => (
                                 <option key={item} value={item}>
@@ -108,7 +168,7 @@ const FormField = () => {
                         <Field.Label>Course Teacher's Department</Field.Label>
                         <Field.HelperText>Enter your course teacher's</Field.HelperText>
                         <NativeSelect.Root>
-                            <NativeSelect.Field name="cover type" border="2px gray solid" placeholder="e.g. Computer Science and Engineering">
+                            <NativeSelect.Field name="teacherDepartment" border="2px gray solid" placeholder="e.g. Computer Science and Engineering" onChange={handleChange}>
                             <For each={departments}>
                                 {(item) => (
                                 <option key={item} value={item}>
@@ -132,25 +192,25 @@ const FormField = () => {
                     <Field.Root>
                         <Field.Label>Student name</Field.Label>
                         <Field.HelperText>Enter your name</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. Joyant Sheikhar Gupta Joy' />
+                        <Input name="studentName" border="2px gray solid" placeholder='e.g. Joyant Sheikhar Gupta Joy' onChange={handleChange} />
                     </Field.Root>
 
                     <Field.Root>
                         <Field.Label>Student Id</Field.Label>
                         <Field.HelperText>Enter your student id</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. 241-0200-203' />
+                        <Input name="studentId" border="2px gray solid" placeholder='e.g. 241-0200-203' onChange={handleChange} />
                     </Field.Root>
                     <Box display="flex" gap={1}>
                         <Field.Root>
                             <Field.Label>Batch No</Field.Label>
                             <Field.HelperText>Enter batch number</Field.HelperText>
-                            <Input name="name" border="2px gray solid" placeholder='e.g. CSE 241' />
+                            <Input name="batchNo" border="2px gray solid" placeholder='e.g. CSE 241' onChange={handleChange} />
                         </Field.Root>
 
                         <Field.Root>
                             <Field.Label>Section</Field.Label>
                             <Field.HelperText>Enter your section</Field.HelperText>
-                            <Input name="name" border="2px gray solid" placeholder='e.g. A' />
+                            <Input name="section" border="2px gray solid" placeholder='e.g. A' onChange={handleChange} />
                         </Field.Root>
                     </Box>
 
@@ -158,7 +218,7 @@ const FormField = () => {
                         <Field.Label>Session</Field.Label>
                         <Field.HelperText>Enter your session</Field.HelperText>
                         <NativeSelect.Root>
-                            <NativeSelect.Field name="name" border="2px gray solid" placeholder='e.g. Summer'>
+                            <NativeSelect.Field name="session" border="2px gray solid" placeholder='e.g. Summer' onChange={handleChange}>
                             <For each={["Spring", "Summer", "Fall"]}>
                                 {(item) => (
                                 <option key={item} value={item}>
@@ -175,7 +235,7 @@ const FormField = () => {
                         <Field.Label>Department</Field.Label>
                         <Field.HelperText>Enter your department</Field.HelperText>
                         <NativeSelect.Root>
-                            <NativeSelect.Field name="cover type" border="2px gray solid" placeholder="e.g. Computer Science and Engineering">
+                            <NativeSelect.Field name="studentDepartment" border="2px gray solid" placeholder="e.g. Computer Science and Engineering" onChange={handleChange}>
                             <For each={departments}>
                                 {(item) => (
                                 <option key={item} value={item}>
@@ -201,10 +261,30 @@ const FormField = () => {
             color="blackAlpha.800"
             _hover={{backgroundColor: "#d0b79e"}}
             style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }}
-            top={{base: "3", lg: "-10"}}
+            top={{base: "3", lg: "-10"}}         
         >
             Submit
-        </Button>  
+        </Button>
+        {readyToDownload && (
+            <Box mt={4} textAlign="center">
+                <PDFDownloadLink
+                    document={<PDFDocument formData={formData} />}
+                    fileName='coverByJS.pdf'
+                >
+                    {({ loading }) => (
+                        <Button
+                            isDisabled={loading}
+                            backgroundColor="#d2c7bc"
+                            borderRadius="full"
+                            _hover={{ backgroundColor: '#d0b79e' }}
+                            style={{ fontFamily: "'Saira', sans-serif", fontWeight: '600' }}
+                        >
+                            {loading ? 'Loading document...' : 'Download PDF'}
+                        </Button>
+                    )}
+                </PDFDownloadLink>
+            </Box>
+        )}
     </Box>
   )
 }

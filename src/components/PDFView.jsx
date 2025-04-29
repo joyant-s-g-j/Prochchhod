@@ -46,7 +46,37 @@ const styles = StyleSheet.create({
 })
 
 
-const PDFView = () => {
+const PDFDocument = ({ formData }) =>  ( 
+      <Document>
+          <Page size={'A4'} style={styles.page} >
+            <View style={styles.body}>
+              <Image style={styles.image} src={adust} />
+              <Text style={styles.uniName}>Atish Dipankar University of Science and Technology</Text>
+
+              <Text style={styles.sectionTitle}>{formData?.pageType || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>Title: {formData?.pageTitle || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>Course Name: {formData?.courseTitle || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>Course ID: {formData?.courseId || 'N/A'}</Text>
+
+              <Text style={styles.sectionTitle}>Submitted to</Text>
+              <Text style={styles.sectionFontSize}>{formData?.teacherName || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>{formData?.teacherDesignation || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>Department of {formData?.teacherDepartment || 'N/A'}</Text>
+
+              <Text style={styles.sectionTitle}>Submitted By</Text>
+              <Text style={styles.sectionFontSize}>{formData?.studentName || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>{formData?.studentId || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>Batch: {formData?.batchNo || 'N/A'} || Section: {formData?.section || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>Session: {formData?.session || 'N/A'}</Text>
+              <Text style={styles.sectionFontSize}>Department of {formData?.studentDepartment || 'N/A'}</Text>
+
+              <Text style={styles.date}>Submission Date: {formData?.submissionDate || 'N/A'}</Text>
+            </View>
+          </Page>
+      </Document>
+  )
+
+const PDFView = ({formData}) => {
   const [isTabletOrMobile] = useMediaQuery('(max-width: 1024px)');
   return (
     <PDFViewer
@@ -59,36 +89,11 @@ const PDFView = () => {
         borderRadius: '20px',
         padding: 10
       }}
-      
     >
-      <Document>
-          <Page size={'A4'} style={styles.page} >
-            <View style={styles.body}>
-              <Image style={styles.image} src={adust} />
-              <Text style={styles.uniName}>Atish Dipankar University of Science and Technology</Text>
-
-              <Text style={styles.sectionTitle}>Assignment</Text>
-              <Text style={styles.sectionFontSize}>Title: Implementing Inheritance of OOP</Text>
-              <Text style={styles.sectionFontSize}>Course Name: Object Oriented Programming</Text>
-              <Text style={styles.sectionFontSize}>Course ID: CSE 212</Text>
-
-              <Text style={styles.sectionTitle}>Submitted to</Text>
-              <Text style={styles.sectionFontSize}>Mahmudur Rahman Roni</Text>
-              <Text style={styles.sectionFontSize}>Assistant Professor</Text>
-              <Text style={styles.sectionFontSize}>Department of Computer Science and Engineering</Text>
-
-              <Text style={styles.sectionTitle}>Submitted By</Text>
-              <Text style={styles.sectionFontSize}>Joyant Sheikhar Gupta Joy</Text>
-              <Text style={styles.sectionFontSize}>Batch: 241 || Section: A</Text>
-              <Text style={styles.sectionFontSize}>Session: Summer</Text>
-              <Text style={styles.sectionFontSize}>Department of Computer Science and Engineering</Text>
-
-              <Text style={styles.date}>Submission Date: 03/05/2025</Text>
-            </View>
-          </Page>
-      </Document>
+      <PDFDocument formData={formData} />
     </PDFViewer>
   )
 }
 
-export default PDFView
+export default PDFView;
+export { PDFDocument };
