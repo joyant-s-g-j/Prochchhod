@@ -95,7 +95,7 @@ const FormField = () => {
             { label: "Student Id", helperText: "Enter your student id", name: "studentId", placeholder: "e.g. 241-0200-203" },
             { label: "Batch No", helperText: "Enter your batch number", name: "batchNo", placeholder: "e.g. CSE 241" },
             { label: "Section", helperText: "Enter your section", name: "section", placeholder: "e.g. A" },
-            { label: "Session", helperText: "Enter your session", name: "session", placeholder: "e.g. Summer" },
+            { label: "Session", helperText: "Enter your session", type: "select", name: "session", options: ['Spring', 'Summer', 'Fall'], placeholder: "e.g. Summer" },
             { label: "Department", helperText: "Enter your department", type: "select", name: "department", options: departments, placeholder: "e.g. Computer Science and Engineering" },
             ]}
         />
