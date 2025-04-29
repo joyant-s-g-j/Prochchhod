@@ -1,6 +1,48 @@
 import { Box, Button, Field, Fieldset, For, Input, NativeSelect, Stack } from '@chakra-ui/react'
 import React from 'react'
 
+const ReusableFieldset = ({title, fields}) => {
+    return (
+        <Fieldset.Root size="lg" maxW="md" paddingX={1} mt={{base: "2", lg: "0"}}>
+            <Stack borderBottom="2px gray solid">
+                <Fieldset.Legend paddingBottom="1">{title}</Fieldset.Legend>
+            </Stack>
+            
+            <Fieldset.Content>
+              <For each={fields}>
+                {(field, idx) => (
+                    <Field.Root key={idx}>
+                        <Field.Label>{field.label}</Field.Label>
+                        <Field.HelperText>{field.helperText}</Field.HelperText>
+                        {field.type === 'select' ? (
+                            <NativeSelect.Root>
+                            <NativeSelect.Field name={field.name} border="2px gray solid" placeholder={field.placeholder}>
+                            <For each={field.options}>
+                                {(option) => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                                )}
+                            </For>
+                            </NativeSelect.Field>
+                            <NativeSelect.Indicator />
+                        </NativeSelect.Root>
+                        ) : (
+                            <Input
+                                name={field.name}
+                                type={field.inputType || 'text'}
+                                border="2px gray solid"
+                                placeholder={field.placeholder}
+                            />
+                        )}   
+                    </Field.Root>
+                )}             
+                </For>
+            </Fieldset.Content>
+        </Fieldset.Root>
+    )
+}
+
 const FormField = () => {
     const designations = [
         "Lecturer", "Senior Lecturer", "Assistant Professor", "Associate Professor",
@@ -24,166 +66,40 @@ const FormField = () => {
         justifyContent="space-between"
     >
         {/* Assignment Details */}
-        <Fieldset.Root size="lg" maxW="md" paddingX={1}>
-            <Stack borderBottom="2px gray solid">
-                <Fieldset.Legend paddingBottom="1">Assignment Details</Fieldset.Legend>
-            </Stack>
-            
-            <Fieldset.Content>
-                <Field.Root>
-                <Field.Label>Cover Page Type</Field.Label>
-                    <Field.HelperText>Enter your page type</Field.HelperText>
-                    <NativeSelect.Root>
-                        <NativeSelect.Field name="name" border="2px gray solid" placeholder='e.g. Assignment'>
-                        <For each={["Assignment", "Lab Report", "Project"]}>
-                            {(item) => (
-                            <option key={item} value={item}>
-                                {item}
-                            </option>
-                            )}
-                        </For>
-                        </NativeSelect.Field>
-                        <NativeSelect.Indicator />
-                    </NativeSelect.Root>
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Cover Page Title</Field.Label>
-                    <Field.HelperText>Enter your page title</Field.HelperText>
-                    <Input name="name" border="2px gray solid" placeholder='e.g. Implementing Inheritance in OOP' />
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Course Title</Field.Label>
-                    <Field.HelperText>Enter your course title</Field.HelperText>
-                    <Input name="name" border="2px gray solid" placeholder='e.g. Object Oriented Programming' />
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Course Id</Field.Label>
-                    <Field.HelperText>Enter your course id</Field.HelperText>
-                    <Input name="name" border="2px gray solid" placeholder='e.g. CSE 212' />
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Submission Date</Field.Label>
-                    <Field.HelperText>Enter submission date</Field.HelperText>
-                    <Input name="date" type='date' border="2px gray solid" placeholder='e.g. 24/05/2025' />
-                </Field.Root>
-
-            </Fieldset.Content>
-        </Fieldset.Root>
+        <ReusableFieldset
+            title="Assignment Details"
+            fields={[
+            { label: "Cover Page Type", helperText: "Enter your page type", type: "select", name: "coverType", options: ["Assignment", "Lab Report", "Project"], placeholder: "e.g. Assignment" },
+            { label: "Cover Page Title", helperText: "Enter your page title", name: "coverTitle", placeholder: "e.g. Implementing Inheritance in OOP" },
+            { label: "Course Title", helperText: "Enter your course title", name: "courseTitle", placeholder: "e.g. Object Oriented Programming" },
+            { label: "Course Id", helperText: "Enter your course id", name: "courseId", placeholder: "e.g. CSE 212" },
+            { label: "Submission Date", helperText: "Enter submission date", name: "submissionDate", inputType: "date", placeholder: "e.g. 24/05/2025" },
+            ]}
+        />
 
         {/* Teacher details */}
-        <Fieldset.Root mt={{base: "2", lg: "0"}} size="lg" maxW="md" paddingX={1}>
-            <Stack borderBottom="2px gray solid">
-                <Fieldset.Legend paddingBottom="1">Teacher Details</Fieldset.Legend>
-            </Stack>
-            <Fieldset.Content>
-                <Field.Root>
-                    <Field.Label>Course Teacher's Name</Field.Label>
-                    <Field.HelperText>Enter your course teacher's name</Field.HelperText>
-                    <Input name="name" border="2px gray solid" placeholder='e.g. Mahmudur Rahman Roni' />           
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Course Teacher's Designation</Field.Label>
-                    <Field.HelperText>Select your course teacher's designation</Field.HelperText>
-                    <NativeSelect.Root>
-                        <NativeSelect.Field name="name" border="2px gray solid" placeholder="e.g. Lecturer">
-                        <For each={designations}>
-                            {(item) => (
-                            <option key={item} value={item}>
-                                {item}
-                            </option>
-                            )}
-                        </For>
-                        </NativeSelect.Field>
-                        <NativeSelect.Indicator />
-                    </NativeSelect.Root>
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Course Teacher's Department</Field.Label>
-                    <Field.HelperText>Enter your course teacher's</Field.HelperText>
-                    <NativeSelect.Root>
-                        <NativeSelect.Field name="cover type" border="2px gray solid" placeholder="e.g. Computer Science and Engineering">
-                        <For each={departments}>
-                            {(item) => (
-                            <option key={item} value={item}>
-                                {item}
-                            </option>
-                            )}
-                        </For>
-                        </NativeSelect.Field>
-                        <NativeSelect.Indicator />
-                    </NativeSelect.Root>
-                </Field.Root>            
-            </Fieldset.Content>
-        </Fieldset.Root>
+        <ReusableFieldset
+            title="Teacher Details"
+            fields={[
+            { label: "Course Teacher's Name", helperText: "Enter your course teacher's name", name: "teacherName", placeholder: "e.g. Mahmudur Rahman Roni" },
+            { label: "Course Teacher's Designation", helperText: "Select your course teacher's designation", type: "select", name: "teacherDesignation", options: designations, placeholder: "e.g. Lecturer" },
+            { label: "Course Teacher's Department", helperText: "Enter your course teacher's department", type: "select", name: "teacherDepartment", options: departments, placeholder: "e.g. Computer Science and Engineering" },
+            ]}
+        />
 
         {/* Student Details */}
-        <Fieldset.Root mt={{base: "2", lg: "0"}} size="lg" maxW="md" paddingX={1}>
-            <Stack borderBottom="2px gray solid">
-                <Fieldset.Legend paddingBottom="1">Student Details</Fieldset.Legend>
-            </Stack>
-            <Fieldset.Content>
-                <Field.Root>
-                    <Field.Label>Student name</Field.Label>
-                    <Field.HelperText>Enter your name</Field.HelperText>
-                    <Input name="name" border="2px gray solid" placeholder='e.g. Joyant Sheikhar Gupta Joy' />
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Student Id</Field.Label>
-                    <Field.HelperText>Enter your student id</Field.HelperText>
-                    <Input name="name" border="2px gray solid" placeholder='e.g. 241-0200-203' />
-                </Field.Root>
-                <Box display="flex" gap={1}>
-                    <Field.Root>
-                        <Field.Label>Batch No</Field.Label>
-                        <Field.HelperText>Enter your batch number</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. CSE 241' />
-                    </Field.Root>
-
-                    <Field.Root>
-                        <Field.Label>Section</Field.Label>
-                        <Field.HelperText>Enter your section</Field.HelperText>
-                        <Input name="name" border="2px gray solid" placeholder='e.g. A' />
-                    </Field.Root>
-                </Box>
-
-                <Field.Root>
-                    <Field.Label>Session</Field.Label>
-                    <Field.HelperText>Enter your session</Field.HelperText>
-                    <Input name="name" border="2px gray solid" placeholder='e.g. Summer' />
-                </Field.Root>
-
-                <Field.Root>
-                    <Field.Label>Department</Field.Label>
-                    <Field.HelperText>Enter your department</Field.HelperText>
-                    <NativeSelect.Root>
-                        <NativeSelect.Field name="cover type" border="2px gray solid" placeholder="e.g. Computer Science and Engineering">
-                        <For each={departments}>
-                            {(item) => (
-                            <option key={item} value={item}>
-                                {item}
-                            </option>
-                            )}
-                        </For>
-                        </NativeSelect.Field>
-                        <NativeSelect.Indicator />
-                    </NativeSelect.Root>
-                </Field.Root>
-                
-            </Fieldset.Content>
-
-        {/* <Button type="submit" alignSelf="flex-start">
-            Submit
-        </Button> */}
-        </Fieldset.Root>
-    </Box>
-    
+        <ReusableFieldset
+            title="Student Details"
+            fields={[
+            { label: "Student Name", helperText: "Enter your name", name: "studentName", placeholder: "e.g. Joyant Sheikhar Gupta Joy" },
+            { label: "Student Id", helperText: "Enter your student id", name: "studentId", placeholder: "e.g. 241-0200-203" },
+            { label: "Batch No", helperText: "Enter your batch number", name: "batchNo", placeholder: "e.g. CSE 241" },
+            { label: "Section", helperText: "Enter your section", name: "section", placeholder: "e.g. A" },
+            { label: "Session", helperText: "Enter your session", name: "session", placeholder: "e.g. Summer" },
+            { label: "Department", helperText: "Enter your department", type: "select", name: "department", options: departments, placeholder: "e.g. Computer Science and Engineering" },
+            ]}
+        />
+    </Box>  
   )
 }
 
