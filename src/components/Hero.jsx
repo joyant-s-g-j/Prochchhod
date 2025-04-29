@@ -3,7 +3,7 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import heroimage from '../assets/heroImage.jpg'
 import { Link } from 'react-router-dom';
-import { PlusIcon } from 'lucide-react';
+import { PlusIcon, User } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -51,21 +51,39 @@ const Hero = () => {
             >
                 Create, Download — Totally Free, Fast, and Easy!
             </Text>
-            <Link to="/formpage">
-                <Button 
-                    variant="ghost" 
-                    mt={3} 
-                    display="flex" 
-                    backgroundColor="#d2c7bc"
-                    borderRadius="full"
-                    color="blackAlpha.800"
-                    _hover={{backgroundColor: "#d0b79e"}}
-                    style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }}
-                >
-                    <Icon as={PlusIcon} />
-                    Create Cover Page
-                </Button>
-            </Link>
+            <Box display="flex" gap={2}>
+                <Link to="/formpage">
+                    <Button 
+                        variant="ghost" 
+                        mt={3} 
+                        display="flex" 
+                        backgroundColor="#d2c7bc"
+                        borderRadius="full"
+                        color="blackAlpha.800"
+                        _hover={{backgroundColor: "#d0b79e"}}
+                        style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }}
+                    >
+                        <Icon as={PlusIcon} />
+                        Create Cover Page
+                    </Button>
+                </Link>
+                <Link to="https://joyant.me/" target="_blank">
+                    <Button 
+                        variant="ghost" 
+                        mt={3} 
+                        display="flex" 
+                        backgroundColor="#d2c7bc"
+                        borderRadius="full"
+                        color="blackAlpha.800"
+                        _hover={{backgroundColor: "#d0b79e"}}
+                        style={{ fontFamily: "'Saira', sans-serif", fontWeight: "600" }}
+                    >
+                        <Icon as={User} />
+                        About Me
+                    </Button>
+                </Link>
+            </Box>
+            
         </motion.div>
                
     </Box>
