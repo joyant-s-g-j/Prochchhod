@@ -5,6 +5,13 @@ import { PDFDocument } from './PDFView'
 import { toaster } from './ui/toaster';
 import { useNavigate } from 'react-router-dom';
 
+const universities = [
+    { id: 'adust', name: 'Atish Dipankar University of Science and Technology', logo: 'adust.png' },
+    { id: 'seu', name: 'South East University', logo: 'seu.png' },
+    { id: 'uiu', name: 'United International University', logo: 'uiu.png' },
+    { id: 'iubat', name: 'International University of Business Agriculture and Technology', logo: 'iubat.png' },
+];
+
 const FormField = () => {
     const [formData, setFormData] = useState({})
     const [readyToDownload, setReadyToDownload] = useState(false)
@@ -48,6 +55,7 @@ const FormField = () => {
     ];  
     
     const [inputData, setInputData] = useState({
+        university: '',
         pageType: '',
         pageTitle: '',
         courseTitle: '',
@@ -73,6 +81,10 @@ const FormField = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        if (!inputData.university) {
+            toaster.error({ title: 'Please select a university' });
+            return;
+        }
         console.log('Submitted formData:', inputData);
         setFormData(inputData)
         setReadyToDownload(true)
@@ -106,6 +118,23 @@ const FormField = () => {
                 
                 <Fieldset.Content>
                     <Field.Root>
+                        <Field.Label>University</Field.Label>
+                        <Field.HelperText>Select your university</Field.HelperText>
+                        <NativeSelect.Root>
+                            <NativeSelect.Field name="university" border="2px gray solid" onChange={handleChange} placeholder='Select your university'>
+                            <For each={universities}>
+                                {(uni) => (
+                                <option key={uni.id} value={uni.id}>
+                                    {uni.name}
+                                </option>
+                                )}
+                            </For>
+                            </NativeSelect.Field>
+                            <NativeSelect.Indicator />
+                        </NativeSelect.Root>
+                    </Field.Root>
+
+                    <Field.Root>
                     <Field.Label>Cover Page Type</Field.Label>
                         <Field.HelperText>Enter your page type</Field.HelperText>
                         <NativeSelect.Root>
@@ -138,12 +167,6 @@ const FormField = () => {
                         <Field.Label>Course Id</Field.Label>
                         <Field.HelperText>Enter your course id</Field.HelperText>
                         <Input name="courseId" border="2px gray solid" placeholder='e.g. CSE 212' onChange={handleChange} />
-                    </Field.Root>
-
-                    <Field.Root>
-                        <Field.Label>Submission Date</Field.Label>
-                        <Field.HelperText>Enter submission date</Field.HelperText>
-                        <Input name="submissionDate" type='date' border="2px gray solid" placeholder='e.g. 24/05/2025' onChange={handleChange} />
                     </Field.Root>
 
                 </Fieldset.Content>
@@ -193,6 +216,12 @@ const FormField = () => {
                             </NativeSelect.Field>
                             <NativeSelect.Indicator />
                         </NativeSelect.Root>
+                    </Field.Root>
+
+                    <Field.Root>
+                        <Field.Label>Submission Date</Field.Label>
+                        <Field.HelperText>Enter submission date</Field.HelperText>
+                        <Input name="submissionDate" type='date' border="2px gray solid" placeholder='e.g. 24/05/2025' onChange={handleChange} />
                     </Field.Root>            
                 </Fieldset.Content>
             </Fieldset.Root>

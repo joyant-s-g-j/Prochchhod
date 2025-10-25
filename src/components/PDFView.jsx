@@ -1,12 +1,22 @@
 import React from 'react'
 import { Document, StyleSheet, PDFViewer, Page, Text, View, Image, Font } from '@react-pdf/renderer'
 import adust from "../assets/adust.png"
+import seu from "../assets/seu.png"
+import uiu from "../assets/uiu.png"
+import iubat from "../assets/iubat.png"
 import { useMediaQuery } from '@chakra-ui/react'
 
 Font.register({
   family: 'Times New Roman',
   src: '/times.ttf',
 })
+
+const universities = {
+  adust: { name: 'Atish Dipankar University of Science and Technology', logo: adust },
+  seu: { name: 'South East University', logo: seu },
+  uiu: { name: 'United International University', logo: uiu },
+  iubat: { name: 'International University of Business Agriculture and Technology', logo: iubat },
+};
 
 const styles = StyleSheet.create({
   page: {
@@ -24,12 +34,19 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 200,
-    width: 150
+    width: 180
   },
   uniName: {
     fontSize: 22,
     textAlign: 'center',
     fontWeight: 'bold',
+    marginTop: 10
+  },
+  uniNameSmall: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 10
   },
   sectionTitle: {
     fontSize: 16,
@@ -46,12 +63,15 @@ const styles = StyleSheet.create({
 })
 
 
-const PDFDocument = ({ formData }) =>  ( 
+const PDFDocument = ({ formData }) =>  {
+  const selectedUniversity = universities[formData?.university] || universities.adust;
+  const isIUBAT = formData?.university === 'iubat';
+  return (
       <Document>
           <Page size={'A4'} style={styles.page} >
             <View style={styles.body}>
-              <Image style={styles.image} src={adust} />
-              <Text style={styles.uniName}>Atish Dipankar University of Science and Technology</Text>
+              <Image style={styles.image} src={selectedUniversity.logo} />
+              <Text style={isIUBAT ? styles.uniNameSmall : styles.uniName}>{selectedUniversity.name}</Text>
 
               <Text style={styles.sectionTitle}>{formData?.pageType || 'N/A'}</Text>
               <Text style={styles.sectionFontSize}>Title: {formData?.pageTitle || 'N/A'}</Text>
@@ -75,6 +95,7 @@ const PDFDocument = ({ formData }) =>  (
           </Page>
       </Document>
   )
+}
 
 const PDFView = ({formData}) => {
   const [isTabletOrMobile] = useMediaQuery('(max-width: 1024px)');
